@@ -195,7 +195,7 @@ export default {
             else if (input_split[0].toUpperCase() === "EXPIRE") {
                 if (this.handleCommandError("EXPIRE", input_split)) {
                     if (this.validateKey(input_split[1])) {
-                        if (isNaN(parseInt(input_split[2]))) {
+                        if (isNaN(parseInt(input_split[2])) || parseInt(input_split[2]) < 0) {
                             req_res["res"] = "ERROR: Invalid number of seconds"
                         } else {
                             this.expire(input_split[1], input_split[2])
