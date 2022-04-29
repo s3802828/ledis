@@ -272,6 +272,9 @@ export default {
         },
         sinter(key) {
             let result = []
+            if (!this.validateKey(key[0])) {
+                return false
+            }
             if (!this.handleTypeError(key[0])) {
                 return false
             }
@@ -280,6 +283,9 @@ export default {
                 let count = 0
                 for (let index = 1; index < key.length; index++) {
                     const key_value = this.stored_data[key[index]];
+                    if (!this.validateKey(key[index])) {
+                        return false
+                    }
                     if (!this.handleTypeError(key[index])) {
                         return false
                     }
@@ -303,7 +309,7 @@ export default {
         },
         expire: function (key, seconds) {
             var currentTime = Date.now()
-            if (this.interval_id[key]){
+            if (this.interval_id[key]) {
                 clearInterval(this.interval_id[key])
             }
             let interval = setInterval(() => {
