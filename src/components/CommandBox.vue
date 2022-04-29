@@ -125,9 +125,14 @@ export default {
                 if (this.handleCommandError("SREM", input_split)) {
                     if (this.validateKey(input_split[1])) {
                         if (this.handleTypeError(input_split[1])) {
+                            let leftItem = []
                             for (let index = 2; index < input_split.length; index++) {
+                                if (!this.checkDuplicateValue(input_split[1], input_split[index])) {
+                                    leftItem.push(input_split[index])
+                                }
                                 req_res["res"] = "Current length of this set: " + this.srem(input_split[1], input_split[index])
                             }
+                            leftItem.length > 0 ? (req_res["res"] = req_res["res"] + "Non-existing value: " + leftItem) : ""
                         } else {
                             req_res["res"] = "ERROR: Can't remove value from string"
                         }
@@ -259,7 +264,9 @@ export default {
             if (!this.stored_data[key]) {
                 this.stored_data[key] = []
             }
-            this.stored_data[key].push(value)
+            if (!this.checkDuplicateValue(key, value)) {
+                this.stored_data[key].push(value)
+            }
             return this.stored_data[key].length
         },
 
@@ -359,6 +366,13 @@ export default {
                 return false
             }
             return true
+        },
+        checkDuplicateValue(key, value) {
+            if (value in this.stored_data[key]) {
+                return true
+            } else {
+                return false
+            }
         },
         handleCommandError(command, input) {
             if ((command === "SET" || command === "EXPIRE") && input.length != 3) {
