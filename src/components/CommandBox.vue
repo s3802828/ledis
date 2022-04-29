@@ -163,7 +163,7 @@ export default {
                 if (this.handleCommandError("SINTER", input_split)) {
                     const res = this.sinter(input_split.splice(1))
                     if (res !== false) {
-                        req_res["res"] = this.sinter(input_split.splice(1))
+                        req_res["res"] = this.sinter(input_split.splice(1)).toString()
                     } else {
                         req_res["res"] = "ERROR: Can't intersect with string or invalid key"
                     }
