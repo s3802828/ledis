@@ -132,7 +132,7 @@ export default {
                                 }
                                 req_res["res"] = "Current length of this set: " + this.srem(input_split[1], input_split[index])
                             }
-                            leftItem.length > 0 ? (req_res["res"] = req_res["res"] + "Non-existing value: " + leftItem) : ""
+                            leftItem.length > 0 ? (req_res["res"] = req_res["res"] + "; Non-existing value: " + leftItem) : ""
                         } else {
                             req_res["res"] = "ERROR: Can't remove value from string"
                         }
@@ -368,7 +368,7 @@ export default {
             return true
         },
         checkDuplicateValue(key, value) {
-            if (value in this.stored_data[key]) {
+            if (this.stored_data[key].includes(value)) {
                 return true
             } else {
                 return false
