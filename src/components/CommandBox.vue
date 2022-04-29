@@ -163,7 +163,7 @@ export default {
                 if (this.handleCommandError("SINTER", input_split)) {
                     const res = this.sinter(input_split.splice(1))
                     if (res !== false) {
-                        req_res["res"] = this.sinter(input_split.splice(1)).toString()
+                        req_res["res"] = res.toString()
                     } else {
                         req_res["res"] = "ERROR: Can't intersect with string or invalid key"
                     }
@@ -174,10 +174,11 @@ export default {
 
             else if (input_split[0].toUpperCase() === "KEYS") {
                 if (this.handleCommandError("KEYS", input_split)) {
-                    if (this.keys().length === 0) {
+                    const res = this.keys()
+                    if (res.length === 0) {
                         req_res["res"] = "None"
                     } else {
-                        req_res["res"] = this.keys().toString()
+                        req_res["res"] = res.toString()
                     }
                 } else {
                     req_res["res"] = "ERROR: Invalid Command"
