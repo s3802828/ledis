@@ -165,7 +165,7 @@ export default {
                     if (res !== false) {
                         req_res["res"] = this.sinter(input_split.splice(1))
                     } else {
-                        req_res["res"] = "ERROR: Can't intersect with string"
+                        req_res["res"] = "ERROR: Can't intersect with string or invalid key"
                     }
                 } else {
                     req_res["res"] = "ERROR: Invalid Command"
